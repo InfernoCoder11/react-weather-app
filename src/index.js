@@ -1,10 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/App";
+import { render } from "react-dom";
+import Router from "./components/Router";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+render(<Router />, document.getElementById("main"));
