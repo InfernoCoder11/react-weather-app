@@ -2,17 +2,21 @@ import React from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import cities from "../india-cities";
 import TextField from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
 import { geocode } from "../apiAccess";
 
 class CityAutocomplete extends React.Component {
   ref = React.createRef();
-  callApis = () => {
-    geocode(this.ref.current.value);
+  callApis = event => {
+    const city = this.ref.current.value;
+    event.preventDefault();
+    if (!this.props.cities.includes(city)) {
+      this.props.addCity(city);
+      geocode(city, this.props.setCityWeather);
+    } else alert("City already added!");
   };
   render() {
     return (
-      <div>
+      <form onSubmit={this.callApis}>
         <Autocomplete
           id="grouped-demo"
           freeSolo={true}
@@ -22,14 +26,13 @@ class CityAutocomplete extends React.Component {
           renderInput={params => (
             <TextField
               {...params}
-              label="City"
+              label="Add City"
               inputRef={this.ref}
               variant="outlined"
             />
           )}
         />
-        <Button onClick={this.callApis}>Test API!!!</Button>
-      </div>
+      </form>
     );
   }
 }

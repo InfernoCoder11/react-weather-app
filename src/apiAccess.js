@@ -1,6 +1,6 @@
 import secrets from "./secrets";
 
-export function geocode(cityName) {
+export function geocode(cityName, setCityWeather) {
   fetch(
     "https://geocode.xyz/" +
       cityName.replace(/ /g, "+") +
@@ -11,11 +11,11 @@ export function geocode(cityName) {
       return response.json();
     })
     .then(data => {
-      getWeather(data.latt, data.longt);
+      getWeather(data.latt, data.longt, cityName, setCityWeather);
     });
 }
 
-function getWeather(latitude, longitude) {
+function getWeather(latitude, longitude, cityName, setCityWeather) {
   //   console.log(
   //     "https://api.darksky.net/forecast/" +
   //       secrets.darkSkySecretKey +
@@ -38,6 +38,6 @@ function getWeather(latitude, longitude) {
       return response.json();
     })
     .then(data => {
-      console.log(data);
+      setCityWeather(cityName, data);
     });
 }
