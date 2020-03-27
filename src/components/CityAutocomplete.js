@@ -7,7 +7,7 @@ import { geocode } from "../apiAccess";
 
 class CityAutocomplete extends React.Component {
   ref = React.createRef();
-  handleThis = () => {
+  callApis = () => {
     geocode(this.ref.current.value);
   };
   render() {
@@ -28,7 +28,7 @@ class CityAutocomplete extends React.Component {
             />
           )}
         />
-        <Button onClick={this.handleThis}>Test API!!!</Button>
+        <Button onClick={this.callApis}>Test API!!!</Button>
       </div>
     );
   }

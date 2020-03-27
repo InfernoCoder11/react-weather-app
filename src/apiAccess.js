@@ -1,43 +1,43 @@
 import secrets from "./secrets";
 
 export function geocode(cityName) {
-  var request = new XMLHttpRequest();
-
-  request.open(
-    "GET",
+  fetch(
     "https://geocode.xyz/" +
       cityName.replace(/ /g, "+") +
       "?json=1&auth=" +
-      secrets.geocodeAuthCode,
-    true
-  );
-
-  request.onload = function() {
-    const data = JSON.parse(this.response);
-    getWeather(data.latt, data.longt);
-  };
-
-  request.send();
+      secrets.geocodeAuthCode
+  )
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      getWeather(data.latt, data.longt);
+    });
 }
 
 function getWeather(latitude, longitude) {
-  var request = new XMLHttpRequest();
-
-  request.open(
-    "GET",
-    "https://api.darksky.net/forecast/" +
+  //   console.log(
+  //     "https://api.darksky.net/forecast/" +
+  //       secrets.darkSkySecretKey +
+  //       "/" +
+  //       latitude +
+  //       "," +
+  //       longitude +
+  //       "?units=si"
+  //   );
+  fetch(
+    "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" +
       secrets.darkSkySecretKey +
       "/" +
       latitude +
       "," +
       longitude +
-      "?units=si",
-    true
-  );
-
-  request.onload = function() {
-    console.log(JSON.parse(this.response));
-  };
-
-  request.send();
+      "?units=si"
+  )
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    });
 }
