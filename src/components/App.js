@@ -53,10 +53,10 @@ class App extends React.Component {
           {Object.keys(this.state.weatherData).map(key => (
             <Grid
               item
-              xs={4}
-              sm={4}
+              xs={12}
+              sm={6}
               lg={4}
-              xl={4}
+              xl={3}
               key={key}
               style={{ padding: 5 }}
             >
