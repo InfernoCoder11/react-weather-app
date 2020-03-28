@@ -2,7 +2,7 @@ import React from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import cities from "../india-cities";
 import TextField from "@material-ui/core/TextField";
-import { geocode } from "../apiAccess";
+import { geocode, getImage } from "../apiAccess";
 
 class CityAutocomplete extends React.Component {
   ref = React.createRef();
@@ -11,6 +11,7 @@ class CityAutocomplete extends React.Component {
     event.preventDefault();
     if (!this.props.cities.includes(city)) {
       this.props.addCity(city);
+      getImage(city, this.props.setCityImage);
       geocode(city, this.props.setCityWeather);
     } else alert("City already added!");
   };
@@ -22,7 +23,7 @@ class CityAutocomplete extends React.Component {
           freeSolo={true}
           options={Object.keys(cities)}
           clearOnEscape={true}
-          style={{ width: 300 }}
+          style={{ width: 300, margin: "0 auto", marginTop: 10 }}
           renderInput={params => (
             <TextField
               {...params}
