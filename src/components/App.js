@@ -3,7 +3,6 @@ import CityAutocomplete from "./CityAutocomplete";
 import CityCard from "./CityCard";
 import NavBar from "./NavBar";
 import Grid from "@material-ui/core/Grid";
-import { Button } from "@material-ui/core";
 
 class App extends React.Component {
   state = {
