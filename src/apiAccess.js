@@ -41,3 +41,18 @@ function getWeather(latitude, longitude, cityName, setCityWeather) {
       setCityWeather(cityName, data);
     });
 }
+
+export function getImage(cityName, setCityImage) {
+  fetch(
+    "https://api.unsplash.com/search/photos?page=1&query=" +
+      cityName +
+      "&client_id=" +
+      secrets.unsplashAccessKey
+  )
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      setCityImage(cityName, data.results[0]["links"]["download"]);
+    });
+}
