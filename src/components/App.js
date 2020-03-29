@@ -1,20 +1,21 @@
 import React from "react";
-import CityAutocomplete from "./CityAutocomplete";
 import CityCard from "./CityCard";
 import NavBar from "./NavBar";
 import Grid from "@material-ui/core/Grid";
+import SideDrawer from "./SideDrawer";
 
 class App extends React.Component {
   state = {
     cities: [],
     weatherData: {},
-    images: {}
+    images: {},
+    drawer: false
   };
   componentDidMount() {
     const cities = localStorage.getItem("cities");
     const weatherData = localStorage.getItem("weatherData");
     const images = localStorage.getItem("images");
-    if (cities) this.setState({ order: JSON.parse(cities) });
+    if (cities) this.setState({ cities: JSON.parse(cities) });
     if (weatherData) this.setState({ weatherData: JSON.parse(weatherData) });
     if (images) this.setState({ images: JSON.parse(images) });
   }
@@ -39,11 +40,17 @@ class App extends React.Component {
     images[city] = link;
     this.setState({ images });
   };
+  toggleDrawer = () => {
+    if (this.state.drawer) this.setState({ drawer: false });
+    else this.setState({ drawer: true });
+  };
   render() {
     return (
       <div>
-        <NavBar />
-        <CityAutocomplete
+        <NavBar toggleDrawer={this.toggleDrawer} />
+        <SideDrawer
+          drawer={this.state.drawer}
+          toggleDrawer={this.toggleDrawer}
           cities={this.state.cities}
           addCity={this.addCity}
           setCityWeather={this.setCityWeather}
@@ -62,6 +69,7 @@ class App extends React.Component {
             >
               <CityCard
                 index={key}
+                history={this.props.history}
                 weatherData={this.state.weatherData}
                 images={this.state.images}
               />
