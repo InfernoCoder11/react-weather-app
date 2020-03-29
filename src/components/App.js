@@ -56,7 +56,7 @@ class App extends React.Component {
           setCityWeather={this.setCityWeather}
           setCityImage={this.setCityImage}
         />
-        <Grid container spacing={24} style={{ padding: 24 }}>
+        <Grid container style={{ padding: 24 }}>
           {Object.keys(this.state.weatherData).map(key => (
             <Grid
               item

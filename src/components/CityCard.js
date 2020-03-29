@@ -24,7 +24,7 @@ class CityCard extends React.Component {
               image={this.props.images[`${this.props.index}`]}
             />
             <CardContent>
-              <Typography gutterBottom variant="headline" component="h2">
+              <Typography gutterBottom variant="inherit" component="h2">
                 {this.props.index}
               </Typography>
               <Typography component="p" color="textSecondary">

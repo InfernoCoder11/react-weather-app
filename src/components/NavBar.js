@@ -22,7 +22,7 @@ class NavBar extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit">
+            <Typography variant="inherit" color="inherit">
               React Weather App
             </Typography>
           </Toolbar>
