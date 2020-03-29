@@ -23,7 +23,7 @@ class CityAutocomplete extends React.Component {
           freeSolo={true}
           options={Object.keys(cities)}
           clearOnEscape={true}
-          style={{ width: 300, margin: "0 auto", marginTop: 10 }}
+          style={{ width: 300, margin: 10 }}
           renderInput={params => (
             <TextField
               {...params}
