@@ -1,4 +1,5 @@
 import secrets from "./secrets";
+import moment from "moment";
 
 export function geocode(cityName, setCityWeather) {
   fetch(
@@ -38,6 +39,7 @@ function getWeather(latitude, longitude, cityName, setCityWeather) {
       return response.json();
     })
     .then(data => {
+      data["moment"] = moment();
       setCityWeather(cityName, data);
     });
 }
