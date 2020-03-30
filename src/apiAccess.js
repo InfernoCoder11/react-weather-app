@@ -16,7 +16,7 @@ export function geocode(cityName, setCityWeather) {
     });
 }
 
-function getWeather(latitude, longitude, cityName, setCityWeather) {
+export function getWeather(latitude, longitude, cityName, setCityWeather) {
   //   console.log(
   //     "https://api.darksky.net/forecast/" +
   //       secrets.darkSkySecretKey +

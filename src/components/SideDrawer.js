@@ -6,11 +6,18 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { geocode } from "../apiAccess";
+import { getWeather } from "../apiAccess";
 
 class SideDrawer extends React.Component {
   refreshWeatherData = () => {
-    this.props.cities.forEach(key => geocode(key, this.props.setCityWeather));
+    this.props.cities.forEach(key =>
+      getWeather(
+        this.props.weatherData[key]["latitude"],
+        this.props.weatherData[key]["latitude"],
+        key,
+        this.props.setCityWeather
+      )
+    );
   };
   render() {
     return (

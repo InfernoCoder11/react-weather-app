@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import moment from "moment";
+import { getWeather } from "../apiAccess";
 
 const initialState = {
   mouseX: null,
@@ -28,6 +29,15 @@ export default function CityCard(props) {
   };
 
   const handleClose = () => {
+    setState(initialState);
+  };
+  const handleRefresh = cityName => {
+    getWeather(
+      props.weatherData[`${props.index}`]["latitude"],
+      props.weatherData[`${props.index}`]["longitude"],
+      cityName,
+      props.setCityWeather
+    );
     setState(initialState);
   };
   const handleRemove = cityName => {
@@ -88,6 +98,7 @@ export default function CityCard(props) {
             : undefined
         }
       >
+        <MenuItem onClick={() => handleRefresh(props.index)}>Refresh</MenuItem>
         <MenuItem onClick={() => handleRemove(props.index)}>Remove</MenuItem>
         <MenuItem onClick={() => handleMoreInfo(props.index)}>
           More Info

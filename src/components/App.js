@@ -67,6 +67,7 @@ class App extends React.Component {
           drawer={this.state.drawer}
           toggleDrawer={this.toggleDrawer}
           cities={this.state.cities}
+          weatherData={this.state.weatherData}
           addCity={this.addCity}
           setCityWeather={this.setCityWeather}
           setCityImage={this.setCityImage}
@@ -85,6 +86,7 @@ class App extends React.Component {
               <CityCard
                 index={key}
                 history={this.props.history}
+                setCityWeather={this.setCityWeather}
                 weatherData={this.state.weatherData}
                 removeCity={this.removeCity}
                 images={this.state.images}
