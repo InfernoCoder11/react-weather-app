@@ -58,7 +58,7 @@ export default function CityCard(props) {
         <Card>
           <CardMedia
             style={{ height: 0, paddingTop: "56.25%" }}
-            image={props.images[`${props.index}`]}
+            image={props.images[`${props.index}`][0]}
           />
           <CardContent>
             <Typography gutterBottom variant="inherit" component="h2">

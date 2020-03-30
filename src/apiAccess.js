@@ -48,6 +48,7 @@ export function getImage(cityName, setCityImage) {
   fetch(
     "https://api.unsplash.com/search/photos?page=1&query=" +
       cityName +
+      "+City" +
       "&client_id=" +
       secrets.unsplashAccessKey
   )
@@ -55,6 +56,10 @@ export function getImage(cityName, setCityImage) {
       return response.json();
     })
     .then(data => {
-      setCityImage(cityName, data.results[0]["links"]["download"]);
+      const images = [];
+      data.results.forEach(image => {
+        images.push(image["links"]["download"]);
+      });
+      setCityImage(cityName, images);
     });
 }
