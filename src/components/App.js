@@ -40,6 +40,21 @@ class App extends React.Component {
     images[city] = link;
     this.setState({ images });
   };
+  removeCity = city => {
+    const cities = [...this.state.cities];
+    const weatherData = { ...this.state.weatherData };
+    const images = { ...this.state.images };
+
+    const index = cities.indexOf(city);
+    if (index > -1) {
+      cities.splice(index, 1);
+    }
+
+    delete weatherData[city];
+    delete images[city];
+
+    this.setState({ cities, weatherData, images });
+  };
   toggleDrawer = () => {
     if (this.state.drawer) this.setState({ drawer: false });
     else this.setState({ drawer: true });
@@ -71,6 +86,7 @@ class App extends React.Component {
                 index={key}
                 history={this.props.history}
                 weatherData={this.state.weatherData}
+                removeCity={this.removeCity}
                 images={this.state.images}
               />
             </Grid>
