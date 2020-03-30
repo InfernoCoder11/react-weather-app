@@ -2,8 +2,16 @@ import React from "react";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import CityAutocomplete from "./CityAutocomplete";
 import Divider from "@material-ui/core/Divider";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import { geocode } from "../apiAccess";
 
 class SideDrawer extends React.Component {
+  refreshWeatherData = () => {
+    this.props.cities.forEach(key => geocode(key, this.props.setCityWeather));
+  };
   render() {
     return (
       <SwipeableDrawer
@@ -19,6 +27,17 @@ class SideDrawer extends React.Component {
           setCityImage={this.props.setCityImage}
         />
         <Divider />
+        <ListItem
+          button
+          key="refresh"
+          style={{ padding: 10 }}
+          onClick={this.refreshWeatherData}
+        >
+          <ListItemIcon>
+            <RefreshIcon />
+          </ListItemIcon>
+          <ListItemText primary="Refresh" />
+        </ListItem>
       </SwipeableDrawer>
     );
   }
