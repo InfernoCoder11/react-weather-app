@@ -58,7 +58,7 @@ export function getImage(cityName, setCityImage) {
     .then(data => {
       const images = [];
       data.results.forEach(image => {
-        images.push(image["links"]["download"]);
+        images.push(image["urls"]["regular"]);
       });
       setCityImage(cityName, images);
     });
