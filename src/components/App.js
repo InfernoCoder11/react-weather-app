@@ -9,21 +9,34 @@ class App extends React.Component {
     cities: [],
     weatherData: {},
     images: {},
+    imageIndexes: {},
     drawer: false
   };
   componentDidMount() {
     const cities = localStorage.getItem("cities");
     const weatherData = localStorage.getItem("weatherData");
     const images = localStorage.getItem("images");
+    const imageIndexes = localStorage.getItem("imageIndexes");
     if (cities) this.setState({ cities: JSON.parse(cities) });
     if (weatherData) this.setState({ weatherData: JSON.parse(weatherData) });
     if (images) this.setState({ images: JSON.parse(images) });
+    if (imageIndexes) this.setState({ imageIndexes: JSON.parse(imageIndexes) });
   }
 
   componentDidUpdate() {
     localStorage.setItem("cities", JSON.stringify(this.state.cities));
     localStorage.setItem("weatherData", JSON.stringify(this.state.weatherData));
     localStorage.setItem("images", JSON.stringify(this.state.images));
+    localStorage.setItem(
+      "imageIndexes",
+      JSON.stringify(this.state.imageIndexes)
+    );
+    Object.keys(this.state.images).forEach(city => {
+      this.state.images[city].forEach(url => {
+        const img = new Image();
+        img.src = url;
+      });
+    });
   }
   addCity = city => {
     const cities = [...this.state.cities];
@@ -44,6 +57,7 @@ class App extends React.Component {
     const cities = [...this.state.cities];
     const weatherData = { ...this.state.weatherData };
     const images = { ...this.state.images };
+    const imageIndexes = { ...this.state.imageIndexes };
 
     const index = cities.indexOf(city);
     if (index > -1) {
@@ -52,8 +66,17 @@ class App extends React.Component {
 
     delete weatherData[city];
     delete images[city];
+    delete imageIndexes[city];
 
-    this.setState({ cities, weatherData, images });
+    this.setState({ cities, weatherData, images, imageIndexes });
+  };
+  handleImageIndexes = city => {
+    const imageIndexes = { ...this.state.imageIndexes };
+    if (imageIndexes.hasOwnProperty(city))
+      imageIndexes[city] =
+        (imageIndexes[city] + 1) % this.state.images[city].length;
+    else imageIndexes[city] = 0;
+    this.setState({ imageIndexes });
   };
   toggleDrawer = () => {
     if (this.state.drawer) this.setState({ drawer: false });
@@ -71,6 +94,7 @@ class App extends React.Component {
           addCity={this.addCity}
           setCityWeather={this.setCityWeather}
           setCityImage={this.setCityImage}
+          handleImageIndexes={this.handleImageIndexes}
         />
         <Grid container style={{ padding: 24 }}>
           {Object.keys(this.state.weatherData).map(key => (
@@ -90,6 +114,8 @@ class App extends React.Component {
                 weatherData={this.state.weatherData}
                 removeCity={this.removeCity}
                 images={this.state.images}
+                imageIndexes={this.state.imageIndexes}
+                handleImageIndexes={this.handleImageIndexes}
               />
             </Grid>
           ))}

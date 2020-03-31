@@ -40,6 +40,10 @@ export default function CityCard(props) {
     );
     setState(initialState);
   };
+  const handleChangeImage = cityName => {
+    props.handleImageIndexes(cityName);
+    setState(initialState);
+  };
   const handleRemove = cityName => {
     props.removeCity(cityName);
     setState(initialState);
@@ -58,7 +62,7 @@ export default function CityCard(props) {
         <Card>
           <CardMedia
             style={{ height: 0, paddingTop: "56.25%" }}
-            image={props.images[`${props.index}`][0]}
+            image={props.images[props.index][props.imageIndexes[props.index]]}
           />
           <CardContent>
             <Typography gutterBottom variant="inherit" component="h2">
@@ -99,6 +103,9 @@ export default function CityCard(props) {
         }
       >
         <MenuItem onClick={() => handleRefresh(props.index)}>Refresh</MenuItem>
+        <MenuItem onClick={() => handleChangeImage(props.index)}>
+          Change Image
+        </MenuItem>
         <MenuItem onClick={() => handleRemove(props.index)}>Remove</MenuItem>
         <MenuItem onClick={() => handleMoreInfo(props.index)}>
           More Info

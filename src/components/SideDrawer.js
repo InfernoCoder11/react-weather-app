@@ -32,6 +32,7 @@ class SideDrawer extends React.Component {
           addCity={this.props.addCity}
           setCityWeather={this.props.setCityWeather}
           setCityImage={this.props.setCityImage}
+          handleImageIndexes={this.props.handleImageIndexes}
         />
         <Divider />
         <ListItem

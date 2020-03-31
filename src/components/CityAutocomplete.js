@@ -11,6 +11,7 @@ class CityAutocomplete extends React.Component {
     event.preventDefault();
     if (!this.props.cities.includes(city)) {
       this.props.addCity(city);
+      this.props.handleImageIndexes(city);
       getImage(city, this.props.setCityImage);
       geocode(city, this.props.setCityWeather);
     } else alert("City already added!");
