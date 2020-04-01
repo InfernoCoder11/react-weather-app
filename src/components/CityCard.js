@@ -2,6 +2,10 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import IconButton from "@material-ui/core/IconButton";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Collapse from "@material-ui/core/Collapse";
 import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -19,6 +23,11 @@ export default function CityCard(props) {
   // const handleClick = () => {
   // };
   const [state, setState] = React.useState(initialState);
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   const contextMenuOverride = event => {
     event.preventDefault();
@@ -49,7 +58,8 @@ export default function CityCard(props) {
     setState(initialState);
   };
   const handleMoreInfo = cityName => {
-    props.history.push(`/city/` + props.index);
+    //props.history.push(`/city/` + props.index);
+    setExpanded(!expanded);
     setState(initialState);
   };
   return (
@@ -69,7 +79,7 @@ export default function CityCard(props) {
               {props.index}
             </Typography>
             <Typography component="p" color="textSecondary">
-              {moment(props.weatherData[`${props.index}`]["moment"]).format(
+              {moment(props.weatherData["moment"]).format(
                 "dddd, MMMM Do YYYY h:mm a"
               )}
             </Typography>
@@ -89,6 +99,43 @@ export default function CityCard(props) {
               Wind Speed : {currently["windSpeed"]} m/s
             </Typography>
           </CardContent>
+          <CardActions disableSpacing>
+            <IconButton
+              // className={clsx(classes.expand, {
+              //   [classes.expandOpen]: expanded,
+              // })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography component="p" color="textSecondary">
+                {props.weatherData[`${props.index}`]["hourly"]["summary"]}
+              </Typography>
+              <Typography component="p" variant="body2">
+                Latitude: {props.weatherData[`${props.index}`]["latitude"]}
+              </Typography>
+              <Typography component="p" variant="body2">
+                Longitude: {props.weatherData[`${props.index}`]["longitude"]}
+              </Typography>
+              <Typography component="p" variant="body2">
+                Timezone: {props.weatherData[`${props.index}`]["timezone"]}
+              </Typography>
+              <Typography component="p" variant="body2">
+                Visibility:{" "}
+                {props.weatherData[`${props.index}`]["currently"]["visibility"]}{" "}
+                km/h
+              </Typography>
+              <Typography component="p" variant="body2">
+                Pressure:{" "}
+                {props.weatherData[`${props.index}`]["currently"]["pressure"]}
+              </Typography>
+            </CardContent>
+          </Collapse>
         </Card>
       ) : null}
       <Menu
