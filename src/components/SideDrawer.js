@@ -13,7 +13,7 @@ class SideDrawer extends React.Component {
     this.props.cities.forEach(key =>
       getWeather(
         this.props.weatherData[key]["latitude"],
-        this.props.weatherData[key]["latitude"],
+        this.props.weatherData[key]["longitude"],
         key,
         this.props.setCityWeather
       )
